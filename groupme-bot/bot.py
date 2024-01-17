@@ -9,6 +9,7 @@ load_dotenv()
 BOT_ID = os.getenv("BOT_ID")
 GROUP_ID = os.getenv("GROUP_ID")
 ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
+USER_ID = os.getenv("USER_ID")
 LAST_MESSAGE_ID = None
 
 
@@ -39,9 +40,23 @@ def process_message(message):
     global LAST_MESSAGE_ID
     text = message["text"].lower()
 
+    sender_type = message["sender_type"]
+    name = message["name"]
+    user_id = message["user_id"]
+
     # i.e. responding to a specific message (note that this checks if "hello bot" is anywhere in the message, not just the beginning)
-    if "hello bot" in text:
-        send_message("sup")
+    if "good morning" in text and sender_type == "user":
+        send_message("good morning, " + name) 
+
+    if "good night" in text and sender_type == "user":
+        send_message("good night, " + name) 
+
+    if user_id == USER_ID:
+        if "stop copying me" in text:
+            send_message("Sorry!")
+        else:
+            send_message(text)
+    
 
     LAST_MESSAGE_ID = message["id"]
 
