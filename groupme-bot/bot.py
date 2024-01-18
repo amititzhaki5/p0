@@ -47,17 +47,14 @@ def process_message(message):
     # i.e. responding to a specific message (note that this checks if "hello bot" is anywhere in the message, not just the beginning)
     if "good morning" in text and sender_type == "user":
         send_message("good morning, " + name) 
-
-    if "good night" in text and sender_type == "user":
+    elif "good night" in text and sender_type == "user":
         send_message("good night, " + name) 
-
-    if user_id == USER_ID:
+    elif user_id == USER_ID:
         if "stop copying me" in text:
             send_message("Sorry!")
         else:
             send_message(text)
     
-
     LAST_MESSAGE_ID = message["id"]
 
 

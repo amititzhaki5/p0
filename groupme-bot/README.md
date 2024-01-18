@@ -7,7 +7,7 @@ In addition, your bot.py file must contain the line `USER_ID = os.getenv("USER_I
 
 ## Features
 
-
+The GroupMe bot I have created is a copy bot. The bot echos everything you say except when you send a message saying "stop copying me" in which case the bot will apologize.
 
 ## How to Run
 
