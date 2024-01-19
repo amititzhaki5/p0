@@ -7,7 +7,7 @@ import pandas as pd
 import openai
 import time
 
-openai.api_key = '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'
+openai.api_key = 'Enter API Key Here'
 
 load_dotenv()
 
