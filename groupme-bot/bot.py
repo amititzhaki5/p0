@@ -3,6 +3,11 @@ import time
 import json
 import os
 from dotenv import load_dotenv
+import pandas as pd
+import openai
+import time
+
+openai.api_key = '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'
 
 load_dotenv()
 
@@ -50,12 +55,24 @@ def process_message(message):
     elif "good night" in text and sender_type == "user":
         send_message("good night, " + name) 
     elif user_id == USER_ID:
-        if "stop copying me" in text:
+        # If you ask question, the bot will provide a response from Chat GPT
+        if text[-1] == "?":
+            prompt = text
+            response = get_ChatGPT_response(prompt=prompt)
+            send_message("ChatGPT says: " + response)
+        # If you tell the bot "stop copying me then it will apologize"
+        elif "stop copying me" in text:
             send_message("Sorry!")
         else:
+            # Else, the bot will just repeat what you say
             send_message(text)
     
     LAST_MESSAGE_ID = message["id"]
+
+def get_ChatGPT_response(prompt,model="gpt-3.5-turbo"):
+    messages = [{"role": "user", "content": prompt}]
+    response = openai.ChatCompletion.create(model=model,messages=messages,temperature=0)
+    return response.choices[0].message.content
 
 
 def main():
